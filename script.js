@@ -197,7 +197,7 @@ function calculateAge(date) {
     let m = today.getMonth() - birthDate.getMonth();
     let d = today.getDay() - birthDate.getDay();
 
-    m = -m;
+    m = Math.abs(m);
     if (age === 0) {
         m === 0 ? m = 11 : m;
     }
