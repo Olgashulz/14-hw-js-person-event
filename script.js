@@ -1,15 +1,18 @@
 btn.addEventListener('click', handleSubmit);
-btn.addEventListener('keyup',function(e) {
-    if(e.key === 'Enter'){
-        handleSubmit();
-    } }
+btn.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') {
+            handleSubmit();
+        }
+    }
 )
 statsBtn.addEventListener('click', printStats);
-
 id.onkeyup = handleInputChange;
 firstName.onkeyup = handleInputChange;
 lastName.onkeyup = handleInputChange;
-age.onkeyup = handleInputChange;
+birthdate.addEventListener('input', (event) => {
+    newPerson.birthdate = event.target.value;
+})
+
 
 const persons = [];
 const data = ['id', 'first Name', 'last Name', 'age', 'delete'];
@@ -19,7 +22,6 @@ const names = Array.from(form.children);
 function handleInputChange(event) {
     const name = event.target.id;
     let value = event.target.value;
-
     switch (name) {
         case 'id':
             newPerson.id = value.trim();
@@ -31,10 +33,6 @@ function handleInputChange(event) {
 
         case 'lastName':
             newPerson.lastName = value.trim();
-            break;
-
-        case 'age':
-            newPerson.age = value.trim();
             break;
 
         default:
@@ -116,11 +114,14 @@ function createFillTable() {
     document.querySelector('.body').appendChild(bodyTrEl);
 
     for (let key in persons[persons.length - 1]) {
-        if (typeof persons[persons.length - 1][key] !== "function") {
+        if (key === 'birthdate') {
+            const age = calculateAge(persons[persons.length - 1][key]);
+            const tdBodyEl = createInfoElement(toMonthsOrYears(age), 'td')
+            bodyTrEl.appendChild(tdBodyEl);
+        } else if (typeof persons[persons.length - 1][key] !== "function") {
             const tdBodyEl = createInfoElement(persons[persons.length - 1][key].toString(), 'td')
             bodyTrEl.appendChild(tdBodyEl);
         }
-
     }
     const tdBodyEl = document.createElement('td');
     const btnDel = createInfoElement('x', 'button')
@@ -141,19 +142,19 @@ function createTableStats() {
 
 function printStats(event) {
     if (persons.length) {
-        const start = persons[0].age
-        const minAge = persons.reduce((res, p) => p.age < res ? p.age : res, start);
-        const maxAge = persons.reduce((res, p) => p.age > res ? p.age : res, start);
-        const avgAge = persons.reduce((res, p) => Number(p.age) + res, 0) / persons.length;
+        const start = calculateAge(persons[0].birthdate);
+        const minAge = persons.reduce((res, p) => calculateAge(p.birthdate) < res ? calculateAge(p.birthdate) : res, start);
+        const maxAge = persons.reduce((res, p) => calculateAge(p.birthdate) > res ? calculateAge(p.birthdate) : res, start);
+        const avgAge = persons.reduce((res, p) => calculateAge(p.birthdate) + res, 0) / persons.length;
 
         const divStats = document.createElement('div');
         divStats.classList.add('containerStats');
 
-        const pavg = createInfoElement(`Average age: ${avgAge.toFixed(1)}`, 'p');
+        const pavg = createInfoElement(`Average age: ${avgAge >= 1 ? Math.round(avgAge) + ' years' : Math.round(avgAge * 12) + ' months'}`, 'p');
         pavg.classList.add('pavg');
-        const pmin = createInfoElement(`Min age: ${minAge}`, 'p');
+        const pmin = createInfoElement(`Min age: ${toMonthsOrYears(minAge)}`, 'p');
         pmin.classList.add('pmin');
-        const pmax = createInfoElement(`Max age: ${maxAge}`, 'p');
+        const pmax = createInfoElement(`Max age: ${toMonthsOrYears(maxAge)}`, 'p');
         pmax.classList.add('pmax');
         divStats.append(pavg, pmin, pmax);
 
@@ -162,7 +163,6 @@ function printStats(event) {
         } else {
             stats.appendChild(divStats);
         }
-
     } else {
         stats.appendChild(createInfoElement('No stats...', 'h4'));
     }
@@ -189,6 +189,26 @@ function removePersonById(idToDelete) {
     })
 }
 
+function calculateAge(date) {
+    let today = new Date();
+    let birthDate = new Date(date);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let d = today.getDay() - birthDate.getDay();
+
+    m = -m;
+    if (age === 0) {
+        m === 0 ? m = 11 : m;
+    }
+
+    return age > 1 ? age - 1 : m / 12;
+}
+
+function toMonthsOrYears(num) {
+    return num >= 1 ? num + ' years' : num * 12 + ' months';
+}
+
 function createInfoElement(content, tag) {
     const element = document.createElement(tag);
     const text = document.createTextNode(content);
@@ -196,9 +216,9 @@ function createInfoElement(content, tag) {
     return element;
 }
 
-function Person(id, firstName, lastName, age) {
+function Person(id, firstName, lastName, birthdate) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.age = age;
+    this.birthdate = birthdate;
 }
