@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>14-hw-event</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<section class="container">
+    <div class="form__container">
+        <form class="form" id="form">
+            <h3>Enter personal data</h3>
+            <label for="id">Id number</label>
+            <input type="number" id="id" placeholder="123456789" class="text">
+
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" placeholder="John" class="text">
+
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" placeholder="Johnson" class="text">
+
+            <label for="age">Age</label>
+            <input type="number" id="age" placeholder="18" class="text">
+            <button type="submit" class="btn btn-three" id="btn"><span>Add data</span></button>
+        </form>
+        <button type="submit" class="btn btn-three" id="statsBtn">See statistics</button>
+    </div>
+</section>
+<section class="personalData">
+    <div id="personalData"></div>
+</section>
+<section id="stats">
+</section>
+</body>
+</html>
