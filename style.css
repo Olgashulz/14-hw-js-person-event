@@ -41,9 +41,9 @@ p {
     padding: 5px;
     font-weight: 100;
     letter-spacing: 2px;
- }
+}
 
-p:not(:last-child){
+p:not(:last-child) {
     border-bottom: 1px solid #ffffff42;
 
 }
@@ -73,7 +73,7 @@ input {
     margin: 0 auto;
 }
 
-tr{
+thead {
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
@@ -140,21 +140,22 @@ tr{
     color: #6a3131;
 }
 
-.containerStats{
+.containerStats {
     width: 500px;
     border: 1px solid #ffffff42;
     margin-bottom: 100px;
     padding: 15px 15px 0 15px;
-    box-shadow: 3px 4px 9px -4px rgba(255,255,255,0.19);
-    -webkit-box-shadow: 3px 4px 9px -4px rgba(255,255,255,0.19);
-    -moz-box-shadow: 3px 4px 9px -4px rgba(255,255,255,0.19);
+    box-shadow: 3px 4px 9px -4px rgba(255, 255, 255, 0.19);
+    -webkit-box-shadow: 3px 4px 9px -4px rgba(255, 255, 255, 0.19);
+    -moz-box-shadow: 3px 4px 9px -4px rgba(255, 255, 255, 0.19);
 
 }
+
 #statsBtn {
     width: 360px;
 }
 
-.del{
+.del {
     margin-top: 0;
     font-weight: 100;
     font-size: 11px;
@@ -162,7 +163,7 @@ tr{
     padding-bottom: 4px;
 }
 
-#stats{
+#stats {
     max-width: 890px;
     margin: 0 auto;
 }
