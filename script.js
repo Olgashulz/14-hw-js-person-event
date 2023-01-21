@@ -1,5 +1,11 @@
 btn.addEventListener('click', handleSubmit);
+btn.addEventListener('keyup',function(e) {
+    if(e.key === 'Enter'){
+        handleSubmit();
+    } }
+)
 statsBtn.addEventListener('click', printStats);
+
 id.onkeyup = handleInputChange;
 firstName.onkeyup = handleInputChange;
 lastName.onkeyup = handleInputChange;
