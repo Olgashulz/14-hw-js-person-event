@@ -177,16 +177,16 @@ function hideStats() {
 
 function removeParentEl(e) {
     const parentNode = e.currentTarget.parentElement;
-    const idPersons = parentNode.parentElement.firstElementChild.textContent;
-    parentNode.parentElement.remove();
-    removePersonById(idPersons);
-    hideStats();
-}
-
-function removePersonById(idToDelete) {
-    persons.forEach(function (el, i) {
-        if (el.id === idToDelete) persons.splice(i, 1)
-    })
+    const string = parentNode.parentElement;
+    const table = string.parentElement
+    for (let i in table.children) {
+        if (table.children[i] === string) {
+            persons.splice(i, 1);
+            string.remove();
+            hideStats();
+            return;
+        }
+    }
 }
 
 function calculateAge(date) {
