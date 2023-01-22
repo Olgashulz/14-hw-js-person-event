@@ -132,14 +132,6 @@ function createFillTable() {
     hideStats();
 }
 
-function createTableStats() {
-    const stats = document.querySelector('.statistic');
-    const statsBtn = document.createElement('button');
-    const textBtn = document.createTextNode('Statistic');
-    statsBtn.appendChild(textBtn);
-    stats.appendChild(statsBtn);
-}
-
 function printStats(event) {
     if (persons.length) {
         const start = calculateAge(persons[0].birthdate);
