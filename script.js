@@ -151,11 +151,8 @@ function printStats(event) {
         divStats.classList.add('containerStats');
 
         const pavg = createInfoElement(`Average age: ${avgAge >= 1 ? Math.round(avgAge) + ' years' : Math.round(avgAge * 12) + ' months'}`, 'p');
-        pavg.classList.add('pavg');
         const pmin = createInfoElement(`Min age: ${toMonthsOrYears(minAge)}`, 'p');
-        pmin.classList.add('pmin');
         const pmax = createInfoElement(`Max age: ${toMonthsOrYears(maxAge)}`, 'p');
-        pmax.classList.add('pmax');
         divStats.append(pavg, pmin, pmax);
 
         if (document.querySelector('.containerStats') !== null) {
